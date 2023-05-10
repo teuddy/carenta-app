@@ -4,6 +4,8 @@ const nextConfig = {
   experimental: {
     appDir: true,
     typedRoutes: true,
+    serverComponentsExternalPackages: ["mongoose"]
+  
   },
   images: {
     remotePatterns: [
@@ -32,6 +34,10 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
+    return config
   },
 };
 
