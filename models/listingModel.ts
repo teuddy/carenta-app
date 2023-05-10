@@ -2,33 +2,37 @@ import { Document, Schema, Model, model, Types } from "mongoose";
 import mongoose from "mongoose";
 
 export interface Listing extends Document {
+  vin: string; // VIN: Vehicle Identification Number
   user_id: Types.ObjectId;
   make: string;
   model: string;
   year: number;
+  type: string;
   description: string;
   location: string;
-  primary_image_url: string; // agregado para eliminar error
+  // primary_image_url: string; // agregado para eliminar error
   image_urls: string[]; // new field for multiple image URLs
   price_per_day: number;
   is_available: boolean;
-  created_at: Date;
-  updated_at: Date;
+  // created_at: Date;
+  // updated_at: Date;
 }
 
 const listingSchema = new Schema<Listing>({
+  vin: { type: String, required: true },
   user_id: { type: Schema.Types.ObjectId, required: true },
   make: { type: String, required: true },
   model: { type: String, required: true },
   year: { type: Number, required: true },
+  type: { type: String, required: true },
   description: { type: String, required: true },
   location: { type: String, required: true },
-  primary_image_url: { type: String, required: true },
+  // primary_image_url: { type: String, required: true },
   image_urls: { type: [String], required: true }, // new field for multiple image URLs
   price_per_day: { type: Number, required: true },
   is_available: { type: Boolean, required: true },
-  created_at: { type: Date, required: true },
-  updated_at: { type: Date, required: true },
+  // created_at: { type: Date, required: true },
+  // updated_at: { type: Date, required: true },
 });
 
 // export const ListingModel: Model<Listing> = model<Listing>("Listing", listingSchema);
