@@ -1,9 +1,10 @@
 import BgGlassmorphism from "@/components/BgGlassmorphism";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import SectionHeroArchivePage from "../(server-components)/SectionHeroArchivePage";
 import heroRightImage from "@/images/hero-right-car.png";
 
 const Layout = ({ children }: { children: ReactNode }) => {
+
   return (
     <div className={`nc-ListingCarMapPage relative `}>
       <BgGlassmorphism />
