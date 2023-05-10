@@ -88,13 +88,13 @@ export const deleteUser = async ( userId: string | string[] ) => {
     console.log("userId in delteUSer: ", userId);
     try {
         const registeredUser = await UserModel.findOne({ _id: userId})
-
         console.log("registeredUser: ", registeredUser);
+
         if(!registeredUser) {
             return {
-                status: "Registration process failed",
+                status: "Deletion process failed",
                 code: 400,
-                message: "User has been registered, please login"
+                message: "User id is not registered"
             }
         }
 

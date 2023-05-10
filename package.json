@@ -26,6 +26,7 @@
     "framer-motion": "^10.11.2",
     "google-map-react": "^2.2.0",
     "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.0",
     "latest": "^0.2.0",
     "lodash": "^4.17.21",
     "mongoose": "^7.1.0",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.2",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1"
