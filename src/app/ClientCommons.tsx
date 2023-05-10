@@ -3,8 +3,10 @@
 import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useThemeMode } from "@/utils/useThemeMode";
+import { getSome } from "@/services";
 
 const ClientCommons = () => {
+
   //
   useThemeMode();
 
@@ -28,6 +30,17 @@ const ClientCommons = () => {
       newBodyClass && $body.classList.remove(newBodyClass);
     };
   }, [pathname]);
+
+
+
+  const some =  async () =>{
+    const res = await getSome()
+    console.log(res)
+  }
+
+  useEffect(()=>{
+      some()
+  })
 
   return <></>;
 };
