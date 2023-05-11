@@ -8,11 +8,17 @@ const reservation = [];
 
 // Register new reservation in the DB
 export const createReservation = async (newReservationData: Reservation ) => {
-    // console.log("newReservationData: ", newReservationData);
+    console.log("newReservationData: ", newReservationData);
     try {
-        const newReservation = await PaymentModel.create(newReservationData)
-        // await newReservation.
-        return newReservation
+        const newReservation = await ReservationModel.create( newReservationData )
+        await newReservation.save()
+        // return newReservation
+        // return ("SUCCESS!!!!")
+        return {
+            status: "Successful registration",
+            code: 200,
+            token: newReservation
+        }
     } catch (error) {
         return error
     }
