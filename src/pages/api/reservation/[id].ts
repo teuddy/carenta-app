@@ -1,28 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connect } from '../../../../utils/dbConnection'
+import { getReservation } from 'controllers/reservation.controller'
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse ) {
-    
-    const reservationId = req.query.id
-    
+export default async function handler( req: NextApiRequest, res: NextApiResponse ) {
+
     connect()
 
     switch(req.method) { 
 
-        case "GET": { 
-            res.send(`GET method - get reservation id: ${reservationId}`) 
+        case "GET": {
+            getReservation(req, res)
+            // res.send("GET method in RESERVATION [id] route")
             break; 
         } 
         case "PUT": {
-            res.send(`PUT method - update reservation id: ${reservationId}`) 
+            res.send("PUT method in RESERVATION [id] route")
+            break; 
         }
         case "DELETE": {
-            res.send(`DELETE method - delete reservation id: ${reservationId}`) 
+            res.send("DELETE method in RESERVATION [id] route")
+            break;
         }
         default: { 
-            res.send("hola reservations"); 
+            res.send("DEFAULT method in RESERVATION [id] route")
             break; 
         } 
     }

@@ -1,3 +1,5 @@
+import { Types } from "joi";
+
 export interface Reservation {
     user_id: Types.ObjectId;
     listing_id: Types.ObjectId;
