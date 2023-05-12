@@ -1,18 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connect } from '../../../../utils/dbConnection'
-// import { create as CreateListingController } from '../../../../controllers/listing.controller'
 import { createReservation } from '../../../../controllers/reservation.controller';
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-    ) {
+export default async function handler( req: NextApiRequest, res: NextApiResponse ) {
 
     connect();
 
     switch(req.method) {
         case "POST": {
-            createReservation(req,res);
+            createReservation(req, res);
+            // res.send("POST method in RESERVATION index ruote")
             break;
         }
         case "GET": {

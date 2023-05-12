@@ -1,16 +1,16 @@
-// import { ReservationModel } from './reservationModel';
+// import { Reservation } from './../interfaces/Reservation.d';
 import { Document, Schema, Model, model, Types } from "mongoose";
 import mongoose from "mongoose";
 
 export interface Reservation extends Document {
   user_id:  Types.ObjectId;
-  listing_id: Types.ObjectId
+  listing_id: Types.ObjectId;
   start_date: Date;
   end_date: Date;
   total_price: number;
   status: string;
-  created_at: Date;
-  updated_at: Date;
+  // created_at: Date;
+  // updated_at: Date;
 }
 
 const reservationSchema = new Schema<Reservation>({
@@ -20,10 +20,10 @@ const reservationSchema = new Schema<Reservation>({
   end_date: { type: Date, required: true },
   total_price: { type: Number, required: true },
   status: { type: String, required: true },
-  created_at: { type: Date, required: true },
-  updated_at: { type: Date, required: true },
+  // created_at: { type: Date, required: true },
+  // updated_at: { type: Date, required: true },
   });
   
   // export const ReservationModel: Model<Reservation> = model<Reservation>("Reservation", reservationSchema);
 
-  export default (mongoose.models.ReservationModel as mongoose.Model<Reservation>) || mongoose.model('Reservation', reservationSchema);
+  export default (mongoose.models.Reservation as mongoose.Model<Reservation>) || mongoose.model('Reservation', reservationSchema);

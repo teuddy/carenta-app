@@ -52,22 +52,14 @@ export const searchListing =
 
 export const getListing = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    try {
-        if(req.query.id !== undefined || req.query.id !== null) {
-            // id to identify the "listing" to return
-            const listingId = req.query.id
-            // Getting "listing"
-            const { status, code, message, listing } = await getListingService(listingId) 
+    // id to identify the "listing" to return
+    const listingId = req.query.id
+    // Getting "listing"
+    const { status, code, message, listing } = await getListingService(listingId) 
 
-            console.log("listing: ", listing)
+    console.log("listing: ", listing)
 
-            res.status( code ).send({ status, code, message, listing })    
-        }
-    } catch (error) {
-        console.log("error: ", error);
-        res.send({error})
-    }
-    
+    res.status( code ).send({ status, code, message, listing })
 }
 
 // Update the data of a vehicle by id

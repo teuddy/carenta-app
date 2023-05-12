@@ -4,52 +4,67 @@ import { getReservation as getReservationRecord, updateReservation as updateRese
 import { reservationSchema } from '../validations/reservation.validation';
 
 // POST: api/reservation // endpoint to create a reservation
-const createReservation = async (req: NextApiRequest, res: NextApiResponse) => {
-    // Validate request data
-    // console.log("req.body: ",req.body);
-    res.send(req.body)
-    const newReservationData = req.body
-    const { error } = reservationSchema.validate( newReservationData )
-    if (error) {
-        return (
-            res.status(400).json({
-                message: error.details[0].message
-            })
-        )
+export const createReservation = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        // console.log("req.body: ", req.body);
+        // res.send(req.body)
+        const newReservationData = req.body
+        // Validate request data
+        const { error } = reservationSchema.validate( newReservationData )
+        if (error) {
+            return (
+                res.status(400).json({
+                    message: error.details[0].message
+                })
+            )
+        }
+
+        // Create reservation in the DB
+        const { status, code, message, reservation } = await createReservationService( newReservationData )
+
+        res.status( code ).send({ status, code, message, reservation })
+
+    } catch (error) {
+        console.log("error: ", error);
+        res.send({error_createReservation: error})
     }
-    // Sending validated data to be processed the payment
-    const newReservation = await createReservationService( newReservationData )
-    console.log("newReservation: ", newReservation);
-    res.status(200).send({ 
-        status: "data of createReservation is valid",
-        data: newReservation
-    })
+    
 }
 
-const getReservation = (req: NextApiRequest, res: NextApiResponse) => {
+// Get reservation record information
+export const getReservation = (req: NextApiRequest, res: NextApiResponse) => {
     
-    // Validate request data
-    const reservationId = req.body.id
-    // const { error } = paymentSchema.validate( paymentData )
+    try {
+        // Validate request data
+        const reservationId = req.query.id
+        console.log('reservationId: ', reservationId);
+        const { error } = reservationSchema.validate( reservationId )
 
-    // if (error) {
-    //     return (
-    //         res.status(400).json({
-    //             message: error.details[0].message
-    //         })
-    //     )
-    // }
-    // Send payment id to get record
-    const recordReservation = getReservationRecord ( reservationId )
-    console.log("recordReservation: ", recordReservation);
-    res.status(200).send({ 
-        status: "data of get Reservation is valid",
-        data: recordReservation
-    })
+        if (error) {
+            return (
+                res.status(400).json({
+                    message: error.details[0].message
+                })
+            )
+        }
+        // Retrive reservation from DB
+        const recordReservation = getReservationRecord ( reservationId )
+
+        console.log("recordReservation: ", recordReservation);
+
+        res.status(200).send({ 
+            status: "data of get Reservation is valid",
+            data: recordReservation
+        })
+    } catch (error) {
+        console.log("error: ", error);
+        return({error_getReservation: error})
+    }
+    
 }
 
 // PUT: api/reservation // endpoint to update reservation by id
-const updateReservation = (req: NextApiRequest, res: NextApiResponse) => {
+export const updateReservation = (req: NextApiRequest, res: NextApiResponse) => {
     
     // Validate request data
     const reservationDataToUpdate = req.body
@@ -73,7 +88,7 @@ const updateReservation = (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 // DELETE: api/payment // endpoint to delete payment by id
-const delelteReservation = (req: NextApiRequest, res: NextApiResponse) => {
+export const delelteReservation = (req: NextApiRequest, res: NextApiResponse) => {
     
     const reservationId = req.body.id
     // const { error } = paymentSchema.validate( paymentData )
@@ -91,11 +106,4 @@ const delelteReservation = (req: NextApiRequest, res: NextApiResponse) => {
         status: "data of delete Reservation is valid",
         data: recordReservation
     })
-}
-
-export {
-    createReservation,
-    getReservation,
-    updateReservation,
-    delelteReservation
 }
