@@ -77,7 +77,7 @@ export const updateUser = async ( userId: string | string[], userDataToUpdate: U
         return {
             status: "Failed",
             code: 500,
-            message: "Internal Server Error"
+            message: error
         }
     }
 }

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connect } from '../../../../utils/dbConnection'
-import { getReservation } from 'controllers/reservation.controller'
+import { delelteReservation, getReservation, updateReservation } from 'controllers/reservation.controller'
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse ) {
 
@@ -9,16 +9,18 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
     switch(req.method) { 
 
         case "GET": {
-            getReservation(req, res)
+            getReservation( req, res )
             // res.send("GET method in RESERVATION [id] route")
             break; 
         } 
         case "PUT": {
-            res.send("PUT method in RESERVATION [id] route")
+            updateReservation( req, res )
+            // res.send("PUT method in RESERVATION [id] route")
             break; 
         }
         case "DELETE": {
-            res.send("DELETE method in RESERVATION [id] route")
+            delelteReservation( req, res )
+            // res.send("DELETE method in RESERVATION [id] route")
             break;
         }
         default: { 

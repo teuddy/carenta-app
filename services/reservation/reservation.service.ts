@@ -25,36 +25,35 @@ export const createReservation = async (newReservationData: Reservation ) => {
 
 // Get reservation by id
 export const getReservation = async ( reservationId: Reservation ) => {
-    
-    // console.log("reservationId: ", reservationId);
+
     try {
-        const getReservation = ReservationModel.findById(reservationId)
-        console.log("getReservation: ", getReservation);
-        return getReservation
-        // return (
-        //     {
-        //         "user_id":  "_id-6446c4c2521bd181f752ee20",
-        //         "listing_id": "asdf6446c4c2521bd181f752ee20",
-        //         "start_date": "2023/04/29",
-        //         "end_date": "2023/05/15",
-        //         "total_price": 1235,
-        //         "status": "pending",
-        //         "created_at": "2023/04/01",
-        //         "updated_at": "2023/04/29"
-        //     }
-        // )
+        const getReservation = await ReservationModel.findById(reservationId)
+        return {
+            status: "OK",
+            code: 200,
+            message: "Successful Request",
+            reservation: getReservation
+        }
+
     } catch (error) {
-        return error
+        console.log("getReservation error: ", error);
+        return ({ getReservation_error: error })
     }
 }
 
 // Update reservation record by id
-export const updateReservation = async ( reservationDataToUpdate: Reservation ) => {
+export const updateReservation = async ( reservationId: Reservation, reservationData: Reservation ) => {
     
-    console.log("paymentDataToUpdate: ", reservationDataToUpdate);
+    console.log("reservationId: ", reservationId);
     try {
-        const updatedReservation = ReservationModel.findByIdAndUpdate(reservationDataToUpdate)
-        return updatedReservation
+        const updatedReservation = await ReservationModel.findByIdAndUpdate(reservationId, reservationData)
+
+        return {
+            status: "OK",
+            code: 200,
+            message: "Successful Request",
+            reservation: updatedReservation
+        }
     } catch (error) {
         return error
     }
@@ -64,9 +63,19 @@ export const deleteReservation = async ( reservationId: Reservation ) => {
     
     console.log("reservationId: ", reservationId);
     try {
-        const deletedReservation = ReservationModel.findByIdAndDelete(reservationId)
-        return deletedReservation
+        const deletedReservation = await ReservationModel.findByIdAndDelete(reservationId)
+        console.log("deletedReservation: ", deletedReservation);
+        return {
+            status: "OK",
+            code: 200,
+            message: "Successful Request",
+            reservation: deletedReservation
+        }
+
     } catch (error) {
-        return error
+        console.log("deleteReservation error: ", error);
+        return {
+            deleteReservation_error: error
+        }
     }
 }
